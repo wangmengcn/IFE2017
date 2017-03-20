@@ -1,0 +1,109 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 04</title>
+  </head>
+<body>
+<div id="inputDiv">
+  <input id="writeInBtn" placeholder="请输入一个整数">
+  <button id="leftInBtn">左侧入</button>
+  <button id="rightInBtn">右侧入</button>
+  &nbsp;
+  <button id="leftOutBtn">左侧出</button>
+  <button id="rightOutBtn">右侧出</button>
+</div>
+<div id="displayDiv">
+  <span>10</span>
+  <span>3</span>
+  <span>7</span>
+  <span>12</span>
+  <span>11</span>
+  <span>30</span>
+</div>
+<style>
+  #inputDiv{
+    margin: 10px 0;
+  }
+  #displayDiv span{
+    margin: 0 5px;
+    font-size: 20px;
+    color: white;
+    background: red;
+    float: left;
+  }
+</style>
+<script type="text/javascript">
+  /*通过ID获取元素*/
+  function $(id){
+    return document.getElementById(id);
+  }
+  /*获取用户输入的数值，不许为空且只允许输入一个整数*/
+  function getInputNum(){
+    var originInputNum = $("writeInBtn").value;
+    if (originInputNum==""){
+      alert("输入不能为空");
+    } else {
+      var reg = /^\d+$/;
+      if (reg.test(originInputNum)){
+        return originInputNum;
+      } else {
+        alert("请输入一个整数");
+      };
+    };
+  }
+  /*点击元素则删除节点（事件代理）*/
+  function initDisAgent(){
+    var agentDisDiv = $("displayDiv");
+    agentDisDiv.onclick = function(ev){
+      var ev = ev||window.event;
+      var target = ev.target||ev.srcElement;
+      if(target.nodeName.toLowerCase() == "span"){
+        alert("删除"+target.innerText);
+        agentDisDiv.removeChild(target);
+      }
+    }
+  }
+  /*点击按钮操作（事件代理）*/
+  function initBtnAgent(){
+    var agent = $("inputDiv");
+    agent.onclick = function(ev){
+      var ev = ev||window.event;
+      var target = ev.target||ev.srcElement;
+      if(target.nodeName.toLowerCase() == "button"){
+        var lengthGet = document.getElementsByTagName("span");
+        var newSpan = document.createElement("span");
+        newSpan.innerHTML = getInputNum();
+        switch(target.id){
+          case "leftInBtn" :
+            $("displayDiv").insertBefore(newSpan,lengthGet[0]);
+            break;
+          case "rightInBtn" :
+            $("displayDiv").appendChild(newSpan);
+            break;
+          case "rightOutBtn" :
+             if (lengthGet.length==0){
+               alert("已经没有数字可以删除了QUQ");
+             } else {
+               alert("删除"+lengthGet[lengthGet.length-1].innerText);
+               $("displayDiv").removeChild(lengthGet[lengthGet.length-1]);
+             };
+            break;
+          case "leftOutBtn" :
+            if (lengthGet.length==0){
+              alert("已经没有数字可以删除了QUQ");
+            } else {
+              alert("删除"+lengthGet[0].innerText);
+              $("displayDiv").removeChild(lengthGet[0]);
+            };
+            break;
+        }
+      }
+    }
+  }
+  /*初始化*/
+  initBtnAgent();
+  initDisAgent();
+</script>
+</body>
+</html>

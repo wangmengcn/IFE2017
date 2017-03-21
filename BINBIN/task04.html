@@ -74,30 +74,33 @@
       if(target.nodeName.toLowerCase() == "button"){
         var lengthGet = document.getElementsByTagName("span");
         var newSpan = document.createElement("span");
-        newSpan.innerHTML = getInputNum();
-        switch(target.id){
-          case "leftInBtn" :
-            $("displayDiv").insertBefore(newSpan,lengthGet[0]);
-            break;
-          case "rightInBtn" :
-            $("displayDiv").appendChild(newSpan);
-            break;
-          case "rightOutBtn" :
-             if (lengthGet.length==0){
-               alert("已经没有数字可以删除了QUQ");
-             } else {
-               alert("删除"+lengthGet[lengthGet.length-1].innerText);
-               $("displayDiv").removeChild(lengthGet[lengthGet.length-1]);
-             };
-            break;
-          case "leftOutBtn" :
-            if (lengthGet.length==0){
-              alert("已经没有数字可以删除了QUQ");
-            } else {
-              alert("删除"+lengthGet[0].innerText);
-              $("displayDiv").removeChild(lengthGet[0]);
-            };
-            break;
+        var inputNum = getInputNum();
+        if (typeof(inputNum)=="number"){
+          newSpan.innerHTML = inputNum;
+          switch(target.id){
+            case "leftInBtn" :
+              $("displayDiv").insertBefore(newSpan,lengthGet[0]);
+              break;
+            case "rightInBtn" :
+              $("displayDiv").appendChild(newSpan);
+              break;
+            case "rightOutBtn" :
+               if (lengthGet.length==0){
+                 alert("已经没有数字可以删除了QUQ");
+               } else {
+                 alert("删除"+lengthGet[lengthGet.length-1].innerText);
+                 $("displayDiv").removeChild(lengthGet[lengthGet.length-1]);
+               };
+              break;
+            case "leftOutBtn" :
+              if (lengthGet.length==0){
+                alert("已经没有数字可以删除了QUQ");
+              } else {
+                alert("删除"+lengthGet[0].innerText);
+                $("displayDiv").removeChild(lengthGet[0]);
+              };
+              break;
+          }
         }
       }
     }

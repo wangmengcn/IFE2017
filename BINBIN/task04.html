@@ -46,7 +46,8 @@
     } else {
       var reg = /^\d+$/;
       if (reg.test(originInputNum)){
-        return originInputNum;
+        var inputNum = parseInt(originInputNum);
+        return inputNum;
       } else {
         alert("请输入一个整数");
       };

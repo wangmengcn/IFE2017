@@ -46,7 +46,8 @@
     } else {
       var reg = /^\d+$/;
       if (reg.test(originInputNum)){
-        return originInputNum;
+        var inputNum = parseInt(originInputNum);
+        return inputNum;
       } else {
         alert("请输入一个整数");
       };
@@ -73,13 +74,20 @@
       if(target.nodeName.toLowerCase() == "button"){
         var lengthGet = document.getElementsByTagName("span");
         var newSpan = document.createElement("span");
-        newSpan.innerHTML = getInputNum();
         switch(target.id){
           case "leftInBtn" :
-            $("displayDiv").insertBefore(newSpan,lengthGet[0]);
+            var inputNum = getInputNum();
+            if (typeof(inputNum)=="number"){         
+              newSpan.innerHTML = inputNum;
+              $("displayDiv").insertBefore(newSpan,lengthGet[0]);
+            }
             break;
           case "rightInBtn" :
-            $("displayDiv").appendChild(newSpan);
+            var inputNum = getInputNum();
+            if (typeof(inputNum)=="number"){                      
+              newSpan.innerHTML = inputNum;
+              $("displayDiv").appendChild(newSpan);
+            }
             break;
           case "rightOutBtn" :
              if (lengthGet.length==0){
@@ -97,7 +105,7 @@
               $("displayDiv").removeChild(lengthGet[0]);
             };
             break;
-        }
+        }   
       }
     }
   }

@@ -6,7 +6,7 @@
   </head>
 <body>
 <div id="inputDiv">
-  <input id="writeInBtn" placeholder="请输入一个整数">
+  <input id="writeInBtn" placeholder="请输入一个10-100之间的整数">
   <button id="leftInBtn">左侧入</button>
   <button id="rightInBtn">右侧入</button>
   &nbsp;
@@ -17,7 +17,7 @@
   <span style="height: 50px">10</span>
   <span style="height: 15px">3</span>
   <span style="height: 35px">7</span>
-  <span style="height: 60px;margin-top: 90px">12</span>
+  <span style="height: 60px">12</span>
   <span style="height: 150px">30</span>
 </div>
 <style>
@@ -41,12 +41,15 @@
   /*通过ID获取元素*/
   function $(id){
     return document.getElementById(id);
-  } 
+  }
+  /*翻转y轴效果*/
   function initHeightSpan(){
     var originSpan = document.getElementsByTagName("span");
     var originDiv = $("displayDiv");
-    for (var i = 0;i<originSpan.length;i++){
-      originSpan[i].style.marginTop = originDiv.offsetHeight-originSpan[i].offsetHeight;
+    if (originSpan.length!==0){
+      for (var i = 0; i < originSpan.length; i++) {
+        originSpan[i].style.marginTop = originDiv.offsetHeight - originSpan[i].offsetHeight;
+      }
     }
   }
   /*获取用户输入的数值，不许为空且只允许输入一个整数*/
@@ -55,12 +58,12 @@
     if (originInputNum == ""){
       alert("输入不能为空");
     } else {
-      var reg = /^\d+$/;
+      var reg = /^(?:[1-9]\d|100)$/;
       if (reg.test(originInputNum)){
         var inputNum = parseInt(originInputNum);
         return inputNum;
       } else {
-        alert("请输入一个整数");
+        alert("请输入一个10-100之间的整数");
       };
     };
   }
@@ -93,6 +96,7 @@
               newSpan.style.height = 5*inputNum+"px";
               $("displayDiv").insertBefore(newSpan,lengthGet[0]);
             }
+            initHeightSpan(newSpan.style.height);
             break;
           case "rightInBtn" :
             var inputNum = getInputNum();
@@ -101,6 +105,7 @@
               newSpan.style.height = 5*inputNum+"px";
               $("displayDiv").appendChild(newSpan);
             }
+            initHeightSpan();
             break;
           case "rightOutBtn" :
              if (lengthGet.length == 0){
